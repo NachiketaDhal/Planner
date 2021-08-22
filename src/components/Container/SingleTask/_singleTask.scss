@@ -1,0 +1,44 @@
+@import "../../../base";
+
+.singletask-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.single-task {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  &__input {
+    display: none;
+  }
+  // &__input:checked + label {
+  //   background-color: $background-primary;
+  // }
+  &__label {
+    height: 1.5em;
+    width: 1.5em;
+    border: 1px solid #323232;
+    background-color: $black-secondary;
+  }
+  h1 {
+    font-size: 1.5em;
+    color: $white-primary;
+  }
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  &-btn {
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+    border: none;
+    cursor: pointer;
+    background-color: $background-primary;
+    color: $black-primary;
+  }
+}

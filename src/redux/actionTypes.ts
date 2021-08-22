@@ -1,0 +1,8 @@
+export const ADD_TODO = "ADD_TODO";
+export const EDIT_TODO_START = "EDIT_TODO_START";
+export const EDIT_TODO_DONE = "EDIT_TODO_DONE";
+export const DELETE_TODO = "DELETE_TODO";
+export const TOGGLE_STATUS = "TOGGLE_STATUS";
+export const CLEAR_INPUT = "CLEAR_INPUT";
+export const FILTER_TASKS = "FILTER_TASKS";
+export const NAVIGATE_TO_OTHER_STATUS = "NAVIGATE_TO_OTHER_STATUS";

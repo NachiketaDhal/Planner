@@ -1,0 +1,77 @@
+@import "../../base";
+
+.task-container {
+  color: $white-primary;
+  background-color: $black-primary;
+  width: 40vw;
+  border-radius: 3px;
+  // padding: 3em 0;
+  &__main {
+    &-header {
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 1px solid #323232;
+      padding: 1.5em 0;
+      span {
+        font-size: 1.5em;
+        cursor: pointer;
+        color: $white-secondary;
+        min-width: 50px;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    &-body {
+      padding: 3em;
+      &-empty {
+        // min-height: 5em;
+        display: grid;
+        place-items: center;
+        font-size: 1.8em;
+        color: $white-secondary;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .task-container {
+    width: 80vw;
+    &__main {
+      width: 80vw;
+      &-header {
+        width: 100%;
+      }
+      &-body {
+      }
+    }
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .task-container {
+    width: 70vw;
+    &__main {
+      width: 70vw;
+      &-header {
+        width: 100%;
+      }
+      &-body {
+      }
+    }
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .task-container {
+    width: 60vw;
+    &__main {
+      width: 60vw;
+      &-header {
+        width: 100%;
+      }
+      &-body {
+      }
+    }
+  }
+}
