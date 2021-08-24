@@ -75,3 +75,12 @@
     }
   }
 }
+
+////////////////////////////////////// NEW ////////////////////////////////////
+
+.all-task-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3em;
+  width: 70vw;
+}

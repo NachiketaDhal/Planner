@@ -15,6 +15,9 @@ export interface IState {
   activeStatus: string;
   inputValue: string;
   // filteredTasks: Array<ITask>;
+  // todoTasks: Array<ITask>;
+  // inProgressTasks: Array<ITask>;
+  // doneTasks: Array<ITask>;
   edit: boolean;
   editedItem: ITask;
 }

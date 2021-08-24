@@ -4,6 +4,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: $black-primary;
+  border-radius: 3px;
+  padding: 3em 1em;
+  min-width: 20em;
 }
 
 .single-task {

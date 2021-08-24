@@ -3,16 +3,15 @@ import {
   DELETE_TODO,
   EDIT_TODO_START,
   EDIT_TODO_DONE,
-  // FILTER_TASKS,
+  FILTER_TASKS,
   NAVIGATE_TO_OTHER_STATUS,
   TOGGLE_STATUS,
 } from "../actionTypes";
 import { IGlobalState, ITask } from "../../interfaces";
 
 // localstorage Tasks
-let localStorageTasks = JSON.parse(
-  String(localStorage.getItem("TODOLIST-TASKS"))
-);
+let localStorageTasks =
+  JSON.parse(String(localStorage.getItem("TODOLIST-TASKS"))) || [];
 let editIndex: number;
 
 export const addTaskToTodo =
@@ -24,14 +23,14 @@ export const addTaskToTodo =
     };
     const newTaskList = [...getState().todo.tasks, newTask];
 
-    // localstorage
-    localStorageTasks = [...newTaskList];
-    localStorage.setItem("TODOLIST-TASKS", JSON.stringify(localStorageTasks));
-
     dispatch({
       type: ADD_TODO,
       payload: newTaskList,
     });
+
+    // localstorage
+    localStorageTasks = [...newTaskList];
+    localStorage.setItem("TODOLIST-TASKS", JSON.stringify(localStorageTasks));
   };
 
 export const deleteTaskFromTodo =
@@ -39,15 +38,12 @@ export const deleteTaskFromTodo =
     const newTaskList = getState().todo.tasks.filter(
       (task: ITask) => task.id !== id
     );
-
     if (id === getState().todo.editedItem.id) {
       getState().todo.edit = false;
     }
-
     // localstorage
     localStorageTasks = [...newTaskList];
     localStorage.setItem("TODOLIST-TASKS", JSON.stringify(localStorageTasks));
-
     dispatch({ type: DELETE_TODO, payload: newTaskList });
   };
 
@@ -98,6 +94,31 @@ export const toggleStatus =
 //   }
 //   dispatch({ type: FILTER_TASKS, payload: newTaskList });
 // };
+
+export const filterTasks =
+  (status: string, id: string) =>
+  (dispatch: any, getState: () => IGlobalState) => {
+    const index = getState().todo.tasks.findIndex((task) => task.id === id);
+    // console.log(index);
+
+    console.log(status);
+
+    // getState().todo.tasks[index].status = status;
+    // console.log(getState().todo.tasks[index]);
+
+    // console.log(localStorageTasks[index]);
+
+    // localstorage
+    // localStorageTasks[index].status = status;
+    // localStorage.setItem("TODOLIST-TASKS", JSON.stringify(localStorageTasks));
+
+    // const newLocalTasks = (JSON.parse(
+    //   String(localStorage.getItem("TODOLIST-TASKS"))
+    // )[index].status = "done");
+    // localStorage.setItem("TODOLIST-TASKS", newLocalTasks);
+
+    dispatch({ type: FILTER_TASKS });
+  };
 
 export const navigateToOtherStatus =
   (status: string) => (dispatch: any, getState: () => IGlobalState) => {

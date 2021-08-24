@@ -1,56 +1,57 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Tasks from "./Tasks/Tasks";
+// import Tasks from "./Tasks/Tasks";
 import { IGlobalState } from "../../interfaces";
 import "./_container.scss";
 import {
+  filterTasks,
   // filterTasks,
   navigateToOtherStatus,
 } from "../../redux/actions/todo.action";
+import Todo from "./Todo/Todo";
+import Progress from "./Progress/Progress";
+import Done from "./Done/Done";
+import SingleColumn from "../SingleColumn/SingleColumn";
 
 const Container = () => {
   const state = useSelector((state: IGlobalState) => state);
   const dispatch = useDispatch();
 
-  const handleNavClick = (status: string) => {
-    dispatch(navigateToOtherStatus(status));
-    // dispatch(filterTasks(status));
+  const drop = (e: any) => {
+    e.preventDefault();
+    const card_id: any = e.dataTransfer.getData("card_id");
+
+    const card: any = document.getElementById(card_id);
+    console.log(card);
+
+    card.style.display = "block";
+
+    e.target.appendChild(card);
+
+    dispatch(filterTasks("pending", card_id));
+  };
+
+  const dragOver = (e: any) => {
+    e.preventDefault();
   };
 
   return (
-    <div className="task-container">
-      <div className="task-container__main">
-        <div className="task-container__main-header">
-          <span
-            className={state.todo.activeStatus === "all" ? "active" : ""}
-            onClick={() => handleNavClick("all")}
-          >
-            ALL
-          </span>
-          <span
-            className={state.todo.activeStatus === "done" ? "active" : ""}
-            onClick={() => handleNavClick("done")}
-          >
-            DONE
-          </span>
-          <span
-            className={state.todo.activeStatus === "pending" ? "active" : ""}
-            onClick={() => handleNavClick("pending")}
-          >
-            PENDING
-          </span>
-        </div>
-        <div className="task-container__main-body">
-          {state.todo.tasks.filter((task) => {
-            if (state.todo.activeStatus === "all") return state.todo.tasks;
-            return task.status === state.todo.activeStatus;
-          }).length < 1 && (
-            <div className="task-container__main-body-empty">No items...</div>
-          )}
-          <Tasks />
-        </div>
-      </div>
+    <div
+      className="all-task-container"
+      // onDrop={drop}
+      // onDragOver={dragOver}
+      // id="main_id"
+    >
+      {/* <SingleColumn id="todo"> */}
+      <Todo />
+      {/* </SingleColumn> */}
+      {/* <SingleColumn id="progress"> */}
+      <Progress />
+      {/* </SingleColumn> */}
+      {/* <SingleColumn id="done"> */}
+      <Done />
+      {/* </SingleColumn> */}
     </div>
   );
 };
