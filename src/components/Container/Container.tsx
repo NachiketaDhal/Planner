@@ -1,59 +1,36 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
-// import Tasks from "./Tasks/Tasks";
-import { IGlobalState } from "../../interfaces";
 import "./_container.scss";
-import {
-  filterTasks,
-  // filterTasks,
-  navigateToOtherStatus,
-} from "../../redux/actions/todo.action";
-import Todo from "./Todo/Todo";
-import Progress from "./Progress/Progress";
-import Done from "./Done/Done";
-import SingleColumn from "../SingleColumn/SingleColumn";
+import SingleColumn from "./SingleColumn/SingleColumn";
+import Cards from "./Cards/Cards";
 
 const Container = () => {
-  const state = useSelector((state: IGlobalState) => state);
-  const dispatch = useDispatch();
-
-  const drop = (e: any) => {
-    e.preventDefault();
-    const card_id: any = e.dataTransfer.getData("card_id");
-
-    const card: any = document.getElementById(card_id);
-    console.log(card);
-
-    card.style.display = "block";
-
-    e.target.appendChild(card);
-
-    dispatch(filterTasks("pending", card_id));
-  };
-
-  const dragOver = (e: any) => {
-    e.preventDefault();
-  };
-
   return (
-    <div
-      className="all-task-container"
-      // onDrop={drop}
-      // onDragOver={dragOver}
-      // id="main_id"
-    >
-      {/* <SingleColumn id="todo"> */}
-      <Todo />
-      {/* </SingleColumn> */}
-      {/* <SingleColumn id="progress"> */}
-      <Progress />
-      {/* </SingleColumn> */}
-      {/* <SingleColumn id="done"> */}
-      <Done />
-      {/* </SingleColumn> */}
-    </div>
+    <Main className="all-task-container">
+      <SingleColumn id="pending">
+        <h2>Pending</h2>
+        <Cards type="pending"></Cards>
+      </SingleColumn>
+      <SingleColumn id="progress">
+        <h2>Progress</h2>
+        <Cards type="progress"></Cards>
+      </SingleColumn>
+      <SingleColumn id="done">
+        <h2>Done</h2>
+        <Cards type="done"></Cards>
+      </SingleColumn>
+    </Main>
   );
 };
+
+const Main = styled.div`
+  h2 {
+    text-align: center;
+    font-size: 25px;
+    color: #3d434b;
+    padding-bottom: 20px;
+  }
+`;
 
 export default Container;

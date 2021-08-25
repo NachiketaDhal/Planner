@@ -8,19 +8,18 @@ export interface ITaskProps {
   id: string;
   value: string;
   status?: string;
+  draggable?: any;
 }
 
 export interface IState {
   tasks: Array<ITask>;
   activeStatus: string;
   inputValue: string;
-  // filteredTasks: Array<ITask>;
-  // todoTasks: Array<ITask>;
-  // inProgressTasks: Array<ITask>;
-  // doneTasks: Array<ITask>;
   edit: boolean;
   editedItem: ITask;
 }
+
+export type TStatus = "pending" | "progress" | "done";
 
 export interface IAction {
   type: any;

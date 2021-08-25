@@ -1,31 +1,43 @@
 import React from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { IGlobalState, ITaskProps } from "../../../interfaces";
+import { ITaskProps } from "../../../interfaces";
 import {
   deleteTaskFromTodo,
   editTodoStart,
-  toggleStatus,
 } from "../../../redux/actions/todo.action";
 import "./_singleTask.scss";
 
-const SingleTask = ({ id, status, value }: ITaskProps) => {
+const SingleTask = ({ id, status, value, draggable }: ITaskProps) => {
   const dispatch = useDispatch();
-  const state = useSelector((state: IGlobalState) => state);
-
-  const foundTask = state.todo.tasks.filter((task) => task.id === id);
-
-  // const styleColor = foundTask[0].status === "done" ? "#9a9fa7" : "#dce0e3";
-  // const styleBgColor = foundTask[0].status === "done" ? "#ea5f8e" : "#5c6064";
 
   const handleEditClick = (id: string) => {
     dispatch(editTodoStart(id));
   };
 
+  const dragStart = (e: any) => {
+    const { target } = e;
+
+    e.dataTransfer!.setData("card_id", target.id);
+
+    // setTimeout(() => {
+    //   target.style.display = "none";
+    // }, 0);
+  };
+
+  const dragOver = (e: any) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div>
+    <div
+      onDragStart={dragStart}
+      onDragOver={dragOver}
+      draggable={draggable}
+      id={id}
+    >
       <div className="singletask-container">
         <div className="single-task">
           <h1>&nbsp;&nbsp;{value}</h1>
@@ -42,13 +54,6 @@ const SingleTask = ({ id, status, value }: ITaskProps) => {
           </button>
         </div>
       </div>
-      {/* <hr
-        style={{
-          border: "none",
-          borderTop: "1px solid #323232",
-          margin: "10px 0",
-        }}
-      /> */}
     </div>
   );
 };
